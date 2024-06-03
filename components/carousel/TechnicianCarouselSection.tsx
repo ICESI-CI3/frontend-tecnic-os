@@ -1,24 +1,16 @@
-import { useTechnicians } from "@/hooks/technician/useTechnicians";
 import { Technician } from "@/interfaces/technician";
 
 
 interface Props {
     name: string,
-    tag: string
+    technicians: Technician[]
   }
 
-export default async function TechniciansCarouselSection({name, tag}: Props) {
-
-    const { fetchTechnicians  } = useTechnicians();
-
-    const technicians: Technician[] = await fetchTechnicians();
-
-    if (!technicians) return <p>No se pudieron cargar los técnicos</p>;
-
+export default async function TechniciansCarouselSection({name, technicians}: Props) {
     return (
         <>
         <h2 className="text-2xl font-semibold mb-4">
-            name
+            {name}
         </h2>
         <div className="flex space-x-4 overflow-x-auto">
             {technicians.map((technician) => (

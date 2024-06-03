@@ -1,13 +1,14 @@
 'use client'
 
-import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
-import { useRouter } from "next/navigation";
-import NavbarPrimaryItem from "./NavbarPrimaryItem";
-import MobileMenuItem from "./MobileMenuItem";
-import NavbarSecondaryItem from "./NavbarSecondaryItem"
 import { useCurrentUser } from '@/hooks/auth/useCurrentUser';
 import { useLogout } from '@/hooks/auth/useLogout';
+import Link from 'next/link';
+import { useRouter } from "next/navigation";
+import { useEffect } from 'react';
+import SearchComponent from "../search/SearchComponent";
+import MobileMenuItem from "./MobileMenuItem";
+import NavbarPrimaryItem from "./NavbarPrimaryItem";
+import NavbarSecondaryItem from "./NavbarSecondaryItem";
 
 const navPrimaryItems =  [
   {
@@ -15,13 +16,13 @@ const navPrimaryItems =  [
     title: 'Home',
   },
   {
-    path: '/counter',
-    title: 'Counter',
+    path: '/Service',
+    title: 'Ofrecer un servicio',
   },
 ]; 
 
 function Navbar() {
-  const { user: currentUser } = useCurrentUser();
+  const { user: currentUser, loading } = useCurrentUser();
   const { logout } = useLogout();
   const router = useRouter();
 
@@ -36,7 +37,6 @@ function Navbar() {
 
       btn.addEventListener('click', toggleMenu);
 
-      // Cleanup function to remove the event listener
       return () => {
         btn.removeEventListener('click', toggleMenu);
       };
@@ -45,6 +45,7 @@ function Navbar() {
 
   return (
     <nav className="bg-white shadow-lg">
+      
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between">
           <div className="flex space-x-4">
@@ -64,9 +65,16 @@ function Navbar() {
             </div>
           </div>
 
-          {/* Secondary Navbar items */}
-          < NavbarSecondaryItem />
+          {/* Search component */}
+          <SearchComponent 
+          placeholder='Busca técnicos, servicios y más...'
+          redirect='/search'
+          />
 
+          {/* Secondary Navbar items */}
+          
+          < NavbarSecondaryItem currentUser={currentUser} loading={loading}/>
+          
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button className="mobile-menu-button">

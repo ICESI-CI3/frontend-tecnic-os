@@ -1,5 +1,5 @@
-import { TechnicianService } from "@/services/technician.service";
 import { Technician } from '@/interfaces/technician';
+import { TechnicianService } from "@/services/technician.service";
 
 export const useTechnicians = () => {
    const fetchTechnicians = async () => {

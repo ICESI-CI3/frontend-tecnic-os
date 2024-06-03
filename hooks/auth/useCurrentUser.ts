@@ -1,18 +1,22 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import {User} from "@/interfaces/user";
-import {AuthService} from "@/services/auth.service";
+import { User } from "@/interfaces/user";
 
 export const useCurrentUser = () => {
     const [user, setCurrentUser] = useState<User | null>(null);
-
+    const [loading, setLoading] = useState(true);
+    
     useEffect(() => {
-        const user = Cookies.get('currentUser');
-        if (user) {
-            console.log(user)
-            setCurrentUser(JSON.parse(user));
-        }
+        const fetchUser = () => {
+            const user = Cookies.get('currentUser');
+            if (user) {
+                setCurrentUser(JSON.parse(user));
+            }
+            setLoading(false);
+        };
+
+        fetchUser();
     }, []);
 
-    return {user};
+    return { user, loading };
 }
