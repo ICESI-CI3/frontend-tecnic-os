@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from 'react';
 import { Technician } from '@/interfaces/technician';
 import { TechnicianService } from "@/services/technician.service";
