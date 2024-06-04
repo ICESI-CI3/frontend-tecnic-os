@@ -1,7 +1,6 @@
 import { CarouselComponent, Footer, Navbar, TechniciansCarousel } from "@/components";
 import { Suspense } from "react";
 
-
 export default function Home() {
   return (
     <>

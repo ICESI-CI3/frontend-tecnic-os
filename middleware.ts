@@ -4,7 +4,6 @@ const protectedRoutes = ['/profile', '/contact', '/about'];
 const authRoutes = ['/login', '/register'];
 
 export default  function middleware(request: NextRequest){
-
     const currentUser = request.cookies.get("currentUser")?.value;
 
     if (protectedRoutes.includes(request.nextUrl.pathname) && (!currentUser || Date.now() >= JSON.parse(currentUser).expiresAt)) {

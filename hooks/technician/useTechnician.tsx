@@ -14,7 +14,7 @@ export const useTechnician = (id: string) => {
             const technicianService = new TechnicianService('http://localhost:3000/api');
             const technicianData = await technicianService.getTechnicianById(id);
             setTechnician(technicianData);
-         } catch (err) {
+         } catch (err:any) {
             setError(err.message);
          } finally {
             setLoading(false);

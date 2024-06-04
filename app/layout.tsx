@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Navbar } from "../components";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Suspense, useContext } from "react";
+import { UserProvider } from "@/context/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} flex flex-col min-h-screen`}>
         <main className="flex-1 w-full bg-gray-100 text-gray-700 p-4">
+        <UserProvider>
           {children}
+        </UserProvider>
         </main>
       </body>
     </html>

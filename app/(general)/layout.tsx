@@ -1,4 +1,3 @@
-import { Sidebar } from "../../components";
 import { Navbar } from "../../components";
 
 export default function GeneralLayout({

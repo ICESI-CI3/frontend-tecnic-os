@@ -2,8 +2,9 @@ import { useLogout } from '@/hooks/auth/useLogout';
 import { User } from '@/interfaces/user';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { usePathname } from "next/navigation";
+import { UserContext } from '@/context/UserContext';
 
 interface Props {
     currentUser: User | null,
@@ -22,8 +23,12 @@ function NavbarSkeleton() {
     );
 }
 
-function NavbarSecondaryItem({ currentUser, loading }: Props) {
-    const { logout } = useLogout();
+function NavbarSecondaryItem() {
+    
+    const loading = false;
+    const userContext = useContext(UserContext);
+    const currentUser = userContext?.currentUser;
+    const { handleLogout: logout } = useLogout();
     const router = useRouter();
     const currentPath = usePathname();
     const [menuOpen, setMenuOpen] = useState(false);
@@ -50,11 +55,7 @@ function NavbarSecondaryItem({ currentUser, loading }: Props) {
 
     const handleProfileClick = () => {
         setMenuOpen(false);
-        if (currentPath === "/profile"){
-            window.location.reload();
-        }else{
-            router.push("/profile");
-        }
+        router.push("/profile");
     };
 
     return (

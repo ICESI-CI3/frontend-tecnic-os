@@ -36,7 +36,7 @@ export class TechnicianService {
             console.log(technicianData)
             const tags = technicianData.tags;
             const description= technicianData.description;
-            const userId = technicianData.userId;
+            const userId = technicianData.id;
             const minimum_fee = technicianData.minimum_fee;
             const response = await this.axios.post(`${this.axios.defaults.baseURL}/technicians/register`, 
             {
