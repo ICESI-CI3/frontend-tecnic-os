@@ -8,7 +8,7 @@ export const useTechnicians = () => {
         const technicians = await technicianService.getTechnicians();
         return technicians as Technician[];
    }
-
+   
    return { fetchTechnicians };
 
 }

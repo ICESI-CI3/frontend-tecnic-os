@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { useTechnician } from "@/hooks/technician/useTechnician";
 
 function ProfileSkeleton() {
+
   return (
     <div className="min-h-screen bg-black-100">
       <div className="flex flex-col md:flex-row">
@@ -37,10 +38,16 @@ function ProfileSkeleton() {
 }
 
 export default function Profile() {
+
   const { user: currentUser, loading } = useCurrentUser();
+  const id = currentUser?currentUser.id:""
   const { logout } = useLogout();
   const router = useRouter();
-  const { technician, loading: technicianLoading } = useTechnician(currentUser?.id);
+  const { technician, loading: technicianLoading } = useTechnician(id);
+
+  const handleButtonClick = () => {
+    router.push('/technicianRegister'); // Replace '/register' with your desired route
+  };
 
   return (
     <div className="min-h-screen bg-black-100">
@@ -105,7 +112,10 @@ export default function Profile() {
                   <p className="text-gray-600">
                     Si deseas ofrecer un servicio, haz click aquí
                   </p>
-                  <button className="mt-2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                  <button
+                    className="mt-2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                    onClick={handleButtonClick}
+                  >
                     Registrarme como Técnico
                   </button>
                 </div>
