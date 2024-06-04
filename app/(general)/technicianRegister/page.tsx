@@ -1,16 +1,30 @@
 "use client";
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useRegister } from '@/hooks/technician/registerTechnician';
+import { useTechnicianUser } from '@/hooks/technician/useTechnicianUser';
+import { UserContext } from '@/context/UserContext';
+import { useContext } from 'react';
 
 const RegisterTechnician = () => {
+  const searchParams = useSearchParams();
+  const capturedUserId:string = searchParams.get('id') || '';
+  const [userId, setUserId] = useState(capturedUserId); // Aquí deberías obtener el 'id' del usuario logueado [1
   const [tags, setTags] = useState('');
   const [description, setDescription] = useState('');
-  const [userId, setUserId] = useState('');
   const [minimumFee, setMinimumFee] = useState(0);
   const router = useRouter();
   const { register } = useRegister();
+
+  // import de hook para obtener usuario a partir de técnico
+  const userContext = useContext(UserContext);
+
+  if (!userContext) {
+    return <div>error</div>
+  }
+
+  const { login: setCurrentUser, currentUser } = userContext;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,14 +34,21 @@ const RegisterTechnician = () => {
         alert("¡Todos los campos deben estar llenos");
       } else {
         const newTechnician = {
+          id: userId, // Add the 'id' property here
           tags,
           description,
-          userId,
           minimum_fee: minimumFee 
         };
-        
+
         register(newTechnician)
-          .then(() => alert(`Registro exitoso!`)) // Redirigir al usuario a la página de inicio de sesión después del registro
+          .then(async () => {
+            alert(`Registro exitoso!`);
+
+            if (currentUser) {
+              currentUser.role = ['technician'];
+              setCurrentUser(currentUser);
+            }
+          }) // Redirigir al usuario a la página de inicio de sesión después del registro
           .catch((e: Error) => alert(e));
       }
 
@@ -50,10 +71,10 @@ const RegisterTechnician = () => {
           <input
             type="text"
             id="userId"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
+            defaultValue={userId}
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
             required
+            readOnly
           />
         </div>
         <div>

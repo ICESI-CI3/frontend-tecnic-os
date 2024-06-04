@@ -1,12 +1,23 @@
 "use client"
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useLogin } from "@/hooks/auth/useLogin";
+import { UserContext } from '@/context/UserContext';
+
 import Error from "next/error";
+import { User } from "@/interfaces/user";
 
 export default function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+
+  const userContext = useContext(UserContext);
+
+  if (!userContext) {
+      return <div>error</div>
+  }
+  const { login: saveCurrentUser} = userContext;
+
   const { login } = useLogin();
   const router = useRouter();
   const onSubmit = () => {
@@ -14,7 +25,10 @@ export default function Login() {
       alert("¡Todos los campos deben tener un valor!");
     } else {
       login(name, password)
-        .then(() => router.push("/profile"))
+        .then((user: User) =>{
+          router.push("/profile");
+          saveCurrentUser(user);
+        })
         .catch((e: Error) => alert(e));
     }
   };

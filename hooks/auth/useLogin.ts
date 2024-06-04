@@ -8,7 +8,10 @@ export const useLogin = () => {
         const user = await authService.login(email, password);
         console.log("Se ha ejecutado useLogin: \n", user, )
         if(user) {
-            Cookies.set('currentUser', JSON.stringify(user));
+            if (user.accessToken){
+                Cookies.set('currentUser', JSON.stringify(user));
+                localStorage.setItem('token', user.accessToken);
+            }
         }
         return user as User;
 

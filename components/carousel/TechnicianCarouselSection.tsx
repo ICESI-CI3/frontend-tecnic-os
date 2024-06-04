@@ -1,5 +1,8 @@
+"use client"
 import { Technician } from "@/interfaces/technician";
-
+import { useRouter } from "next/navigation";
+import { UserContext } from "@/context/UserContext";
+import { useContext } from "react";
 
 interface Props {
     name: string,
@@ -7,6 +10,21 @@ interface Props {
   }
 
 export default async function TechniciansCarouselSection({name, technicians}: Props) {
+
+    const userContext = useContext(UserContext);
+
+    if (!userContext) {
+        throw new Error('useLogout debe ser utilizado dentro de un UserProvider');
+    }
+
+    const { currentUser } = userContext;
+
+    const router = useRouter();
+    const handleTechnicianClick = (technicianId: string) => {
+        router.push(`/appointment-register?technicianId=${technicianId}`);
+    }
+
+
     return (
         <>
         <h2 className="text-2xl font-semibold mb-4">
@@ -15,11 +33,12 @@ export default async function TechniciansCarouselSection({name, technicians}: Pr
         <div className="flex space-x-4 overflow-x-auto">
             {technicians.map((technician) => (
             <div
-                key={technician.userId}
-                className="min-w-[200px] bg-white p-4 rounded-lg shadow-md flex-shrink-0"
+                key={technician.id}
+                className="min-w-[200px] bg-white p-4 rounded-lg shadow-md flex-shrink-0 hover:cursor-pointer"
+                onClick={() => handleTechnicianClick(technician.id)}
             >
                 <img
-                src="https://via.placeholder.com/150"
+                src="https://thispersondoesnotexist.com/"
                 alt={technician.description}
                 className="w-full h-40 object-cover rounded-md mb-4"
                 />

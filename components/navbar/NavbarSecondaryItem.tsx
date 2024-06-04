@@ -2,8 +2,9 @@ import { useLogout } from '@/hooks/auth/useLogout';
 import { User } from '@/interfaces/user';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { usePathname } from "next/navigation";
+import { UserContext } from '@/context/UserContext';
 
 interface Props {
     currentUser: User | null,
@@ -22,8 +23,16 @@ function NavbarSkeleton() {
     );
 }
 
-function NavbarSecondaryItem({ currentUser, loading }: Props) {
-    const { logout } = useLogout();
+function NavbarSecondaryItem() {
+    
+    const loading = false;
+    const userContext = useContext(UserContext);
+    if (!userContext) {
+        return <div>error</div>
+    }
+    
+    const { currentUser }  = userContext;
+    const { handleLogout: logout } = useLogout();
     const router = useRouter();
     const currentPath = usePathname();
     const [menuOpen, setMenuOpen] = useState(false);
@@ -50,11 +59,7 @@ function NavbarSecondaryItem({ currentUser, loading }: Props) {
 
     const handleProfileClick = () => {
         setMenuOpen(false);
-        if (currentPath === "/profile"){
-            window.location.reload();
-        }else{
-            router.push("/profile");
-        }
+        router.push("/profile");
     };
 
     return (
@@ -65,7 +70,7 @@ function NavbarSecondaryItem({ currentUser, loading }: Props) {
                         onClick={() => setMenuOpen(!menuOpen)}
                         className="w-10 h-10 rounded-full bg-gray-500 text-white flex items-center justify-center"
                     >
-                        {currentUser.username.charAt(0).toUpperCase()}
+                        {currentUser.username? currentUser.username.charAt(0).toUpperCase(): "P"}
                     </button>
                     {menuOpen && (
                         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg py-2 z-50">

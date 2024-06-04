@@ -2,6 +2,6 @@ export interface Technician{
     id: number
     tags: string;
     description: string;
-    userId: string;
+    id: string;
     minimum_fee: number
 }

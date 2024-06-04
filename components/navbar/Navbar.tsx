@@ -1,14 +1,15 @@
 'use client'
 
-import { useCurrentUser } from '@/hooks/auth/useCurrentUser';
 import { useLogout } from '@/hooks/auth/useLogout';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import SearchComponent from "../search/SearchComponent";
 import MobileMenuItem from "./MobileMenuItem";
 import NavbarPrimaryItem from "./NavbarPrimaryItem";
 import NavbarSecondaryItem from "./NavbarSecondaryItem";
+import { UserContext } from '@/context/UserContext';
+
 
 const navPrimaryItems =  [
   {
@@ -17,13 +18,14 @@ const navPrimaryItems =  [
   },
   {
     path: '/Service',
-    title: 'Ofrecer un servicio',
+    title: 'Soy un técnico',
   },
 ]; 
 
 function Navbar() {
-  const { user: currentUser, loading } = useCurrentUser();
-  const { logout } = useLogout();
+  const userContext = useContext(UserContext);
+  const currentUser = userContext?.currentUser;
+  const { handleLogout:logout } = useLogout();
   const router = useRouter();
 
   useEffect(() => {
@@ -73,7 +75,7 @@ function Navbar() {
 
           {/* Secondary Navbar items */}
           
-          < NavbarSecondaryItem currentUser={currentUser} loading={loading}/>
+          < NavbarSecondaryItem />
           
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">

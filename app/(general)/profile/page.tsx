@@ -1,9 +1,10 @@
 "use client"
-import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 import { useLogout } from "@/hooks/auth/useLogout";
 import { useRouter } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useContext, useEffect, useState } from "react";
 import { useTechnician } from "@/hooks/technician/useTechnician";
+import { UserContext } from "@/context/UserContext";
+import { User } from "@/interfaces/user";
 
 function ProfileSkeleton() {
 
@@ -38,15 +39,22 @@ function ProfileSkeleton() {
 }
 
 export default function Profile() {
+  
+  const userContext = useContext(UserContext);
 
-  const { user: currentUser, loading } = useCurrentUser();
+  if (!userContext) {
+      throw new Error('useLogout debe ser utilizado dentro de un UserProvider');
+  }
+
+  const { logout, currentUser } = userContext;
+  
   const id = currentUser?currentUser.id:""
-  const { logout } = useLogout();
+
   const router = useRouter();
   const { technician, loading: technicianLoading } = useTechnician(id);
 
   const handleButtonClick = () => {
-    router.push('/technicianRegister'); // Replace '/register' with your desired route
+    router.push(`/technicianRegister?id=${id}`); // Replace '/register' with your desired route
   };
 
   return (
@@ -88,14 +96,14 @@ export default function Profile() {
           </ul>
         </div>
 
-        {loading ? (
+        {false ? (
           <ProfileSkeleton />
         ) : (
           <div className="w-full md:w-3/4 p-4">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="flex items-center">
                 <div className="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center text-2xl font-bold text-white">
-                  {currentUser?.username.charAt(0).toUpperCase()}
+                  {currentUser?.username ? currentUser.username.charAt(0).toUpperCase(): "P"}
                 </div>
                 <div className="ml-4">
                   <h3 className="text-xl font-semibold">{currentUser?.username}</h3>
