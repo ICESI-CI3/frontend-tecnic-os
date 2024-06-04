@@ -1,11 +1,11 @@
 import  axios,  {AxiosInstance} from 'axios';
 import { Technician } from '@/interfaces/technician';
+import { User } from '@/interfaces/user';
 
 export class TechnicianService {
 
-    
-
     protected readonly axios: AxiosInstance;
+    
     public constructor(url: string) {
         this.axios = axios.create({
             baseURL: url,
@@ -59,7 +59,36 @@ export class TechnicianService {
 
     public async getTechnicianById(id: string): Promise<Technician> {
         try{
-            const response = await this.axios.get(`${this.axios.defaults.baseURL}/technicians/${id}`);
+            const response = await this.axios.get(`${this.axios.defaults.baseURL}/technicians/`+ id);
+            return response.data;
+        }catch (error: any){
+            if (error.response) {
+                const errorMessage = error.response.data.message;
+                throw new Error(errorMessage);
+            } else {
+                throw error;
+            }
+        }
+    }
+
+    public async update(id: string, technicianData: {}): Promise<Technician> {
+        try {
+            console.log(technicianData)
+            const response = await this.axios.patch(`${this.axios.defaults.baseURL}/technicians/$id`, technicianData);
+            return response.data;
+        } catch (error: any) {
+            if (error.response) {
+                const errorMessage = error.response.data.message;
+                throw new Error(errorMessage);
+            } else {
+                throw error;
+            }
+        }
+    }
+
+    public async getUserTechnician(userId: string): Promise<User> {
+        try{
+            const response = await this.axios.get(`${this.axios.defaults.baseURL}/technicians/user/${userId}`);
             return response.data;
         }catch (error: any){
             if (error.response) {
