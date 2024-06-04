@@ -103,7 +103,7 @@ export default function Profile() {
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="flex items-center">
                 <div className="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center text-2xl font-bold text-white">
-                  {currentUser?.username.charAt(0).toUpperCase()}
+                  {currentUser?.username ? currentUser.username.charAt(0).toUpperCase(): "P"}
                 </div>
                 <div className="ml-4">
                   <h3 className="text-xl font-semibold">{currentUser?.username}</h3>

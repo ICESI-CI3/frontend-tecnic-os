@@ -7,7 +7,6 @@ const technicianRestrictedRoutes = ['/technicianRegister'];
 export default  function middleware(request: NextRequest){
     const currentUser = request.cookies.get("currentUser")?.value;
     const object = currentUser? JSON.parse(currentUser as string): null;
-    console.log("---------------", currentUser);
 
     if (technicianRestrictedRoutes.includes(request.nextUrl.pathname) &&
     ((object)?.role[0]==="technician")) {

@@ -27,7 +27,11 @@ function NavbarSecondaryItem() {
     
     const loading = false;
     const userContext = useContext(UserContext);
-    const currentUser = userContext?.currentUser;
+    if (!userContext) {
+        return <div>error</div>
+    }
+    
+    const { currentUser }  = userContext;
     const { handleLogout: logout } = useLogout();
     const router = useRouter();
     const currentPath = usePathname();
@@ -66,7 +70,7 @@ function NavbarSecondaryItem() {
                         onClick={() => setMenuOpen(!menuOpen)}
                         className="w-10 h-10 rounded-full bg-gray-500 text-white flex items-center justify-center"
                     >
-                        {currentUser.username.charAt(0).toUpperCase()}
+                        {currentUser.username? currentUser.username.charAt(0).toUpperCase(): "P"}
                     </button>
                     {menuOpen && (
                         <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg py-2 z-50">
