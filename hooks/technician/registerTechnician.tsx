@@ -6,7 +6,7 @@
 
     export const useRegister = () => {
         const register = async (technicianData: Technician) => {
-            const technicianService = new TechnicianService('http://localhost:3000/api');
+            const technicianService = new TechnicianService('https://backend-tecnic-os.onrender.com/api');
             const technician = await technicianService.register(technicianData);
             return technician;
         };
