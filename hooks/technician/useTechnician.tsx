@@ -11,7 +11,7 @@ export const useTechnician = (id: string) => {
       const fetchTechnician = async () => {
          try {
             setLoading(true);
-            const technicianService = new TechnicianService('http://localhost:3000/api');
+            const technicianService = new TechnicianService('https://backend-tecnic-os.onrender.com/api');
             const technicianData = await technicianService.getTechnicianById(id);
             setTechnician(technicianData);
          } catch (err:any) {
