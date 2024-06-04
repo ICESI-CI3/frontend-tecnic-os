@@ -5,7 +5,7 @@ import { UserService } from '@/services/user.service';
 
 export const useUsers = () => {
    const fetchUsers = async () => {
-        const userService = new UserService('http://localhost:3000/api');
+        const userService = new UserService('https://backend-tecnic-os.onrender.com/api');
         //await new Promise(resolve => setTimeout(resolve, 4000));
         const users = await userService.getUsers();
         return users as User[];
