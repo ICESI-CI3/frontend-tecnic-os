@@ -1,6 +1,6 @@
 "use client"
-import { useUsers } from '@/hooks/users/useUsers';
-import { editUser } from '@/hooks/users/editUser';
+import { UseUsers } from '@/hooks/users/useUsers';
+import { EditUser } from '@/hooks/users/editUser';
 import React, { useState, useEffect } from 'react';
 
 interface User {

@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useRegister } from '@/hooks/technician/registerTechnician';
-import { useTechnicianUser } from '@/hooks/technician/useTechnicianUser';
+import { UseRegister } from '@/hooks/technician/registerTechnician';
+import { UseTechnicianUser } from '@/hooks/technician/useTechnicianUser';
 import { UserContext } from '@/context/UserContext';
 import { useContext } from 'react';
 

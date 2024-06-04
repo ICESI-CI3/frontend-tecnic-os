@@ -1,9 +1,9 @@
 "use client"
-import { useTechnicians } from '@/hooks/technician/useTechnicians';
-import { editTechnician } from '@/hooks/technician/editTechnician';
+import { UseTechnicians } from '@/hooks/technician/useTechnicians';
+import { EditTechnician } from '@/hooks/technician/editTechnician';
 import React, { useState, useEffect } from 'react';
 import { Technician } from '@/interfaces/technician';
-import { useTechnicianUser } from '@/hooks/technician/useTechnicianUser';
+import { UseTechnicianUser } from '@/hooks/technician/useTechnicianUser';
 
 const TechniciansPage: React.FC = () => {
   const [technicians, setTechnicians] = useState<Technician[]>([]);

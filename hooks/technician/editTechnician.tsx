@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { TechnicianService } from '@/services/technician.service';
 
-export const editTechnician = () => {
+export const EditTechnician = () => {
     const [error, setError] = useState<string | null>(null); 
 
     const update = async (id: string, userData: {}) => {

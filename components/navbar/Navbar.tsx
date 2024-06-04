@@ -1,6 +1,6 @@
 'use client'
 
-import { useLogout } from '@/hooks/auth/useLogout';
+import { UseLogout } from '@/hooks/auth/useLogout';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import { useEffect, useContext } from 'react';
@@ -25,7 +25,7 @@ const navPrimaryItems =  [
 function Navbar() {
   const userContext = useContext(UserContext);
   const currentUser = userContext?.currentUser;
-  const { handleLogout:logout } = useLogout();
+  const { handleLogout:logout } = UseLogout();
   const router = useRouter();
 
   useEffect(() => {

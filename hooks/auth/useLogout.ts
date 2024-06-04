@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { useContext } from "react";
 import { UserContext } from "@/context/UserContext";
 
-export const useLogout = () => {
+export const UseLogout = () => {
     const userContext = useContext(UserContext);
 
     if (!userContext) {

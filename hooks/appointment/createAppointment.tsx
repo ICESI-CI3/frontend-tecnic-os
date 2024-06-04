@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { UserContext } from "@/context/UserContext";
 
 
-export const useCreateAppointment = () => {
+export const UseCreateAppointment = () => {
     const userContext = useContext(UserContext);
 
     if (!userContext) {

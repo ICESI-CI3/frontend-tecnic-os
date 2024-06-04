@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { UserService } from '@/services/user.service';
 
-export const editUser = () => {
+export const EditUser = () => {
     const [error, setError] = useState<string | null>(null); 
 
     const update = async (id: string, userData: {}) => {

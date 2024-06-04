@@ -1,8 +1,8 @@
 "use client"
-import { useLogout } from "@/hooks/auth/useLogout";
+import { UseLogout } from "@/hooks/auth/useLogout";
 import { useRouter } from "next/navigation";
 import { Suspense, useContext, useEffect, useState } from "react";
-import { useTechnician } from "@/hooks/technician/useTechnician";
+import { UseTechnician } from "@/hooks/technician/useTechnician";
 import { UserContext } from "@/context/UserContext";
 import { User } from "@/interfaces/user";
 

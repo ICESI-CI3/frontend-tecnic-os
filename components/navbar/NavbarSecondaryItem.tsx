@@ -1,4 +1,4 @@
-import { useLogout } from '@/hooks/auth/useLogout';
+import { UseLogout } from '@/hooks/auth/useLogout';
 import { User } from '@/interfaces/user';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -32,7 +32,7 @@ function NavbarSecondaryItem() {
     }
     
     const { currentUser }  = userContext;
-    const { handleLogout: logout } = useLogout();
+    const { handleLogout: logout } = UseLogout();
     const router = useRouter();
     const currentPath = usePathname();
     const [menuOpen, setMenuOpen] = useState(false);

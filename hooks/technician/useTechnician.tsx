@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Technician } from '@/interfaces/technician';
 import { TechnicianService } from "@/services/technician.service";
 
-export const useTechnician = (id: string) => {
+export const UseTechnician = (id: string) => {
    const [technician, setTechnician] = useState<Technician | null>(null);
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState<string | null>(null);

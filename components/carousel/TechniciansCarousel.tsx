@@ -1,9 +1,9 @@
 import React from "react";
-import { useTechnicians } from "@/hooks/technician/useTechnicians";
+import { UseTechnicians } from "@/hooks/technician/useTechnicians";
 import TechniciansCarouselSection from "./TechnicianCarouselSection";
 
 export default async function TechniciansCarousel() {
-  const { fetchTechnicians  } = useTechnicians();
+  const { fetchTechnicians  } = UseTechnicians();
 
   const technicians = await fetchTechnicians();
 

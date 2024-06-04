@@ -4,7 +4,7 @@
     import { TechnicianService } from '@/services/technician.service';
     import { Technician } from '@/interfaces/technician';
 
-    export const useRegister = () => {
+    export const UseRegister = () => {
         const register = async (technicianData: Technician) => {
             const technicianService = new TechnicianService('https://backend-tecnic-os.onrender.com/api');
             const technician = await technicianService.register(technicianData);
