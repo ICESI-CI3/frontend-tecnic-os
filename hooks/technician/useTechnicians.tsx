@@ -3,7 +3,7 @@ import { TechnicianService } from "@/services/technician.service";
 
 export const useTechnicians = () => {
    const fetchTechnicians = async () => {
-        const technicianService = new TechnicianService('http://localhost:3000/api');
+        const technicianService = new TechnicianService('https://backend-tecnic-os.onrender.com/api');
         const technicians = await technicianService.getTechnicians();
         return technicians as Technician[];
    }
