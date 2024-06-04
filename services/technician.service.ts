@@ -1,10 +1,8 @@
 import  axios,  {AxiosInstance} from 'axios';
 import { Technician } from '@/interfaces/technician';
+import { User } from '@/interfaces/user';
 
 export class TechnicianService {
-
-    
-
     protected readonly axios: AxiosInstance;
     public constructor(url: string) {
         this.axios = axios.create({
@@ -22,6 +20,20 @@ export class TechnicianService {
             const response = await this.axios.get(`${this.axios.defaults.baseURL}/technicians`);
             return response.data;
         }catch (error: any) {
+            if (error.response) {
+                const errorMessage = error.response.data.message;
+                throw new Error(errorMessage);
+            } else {
+                throw error;
+            }
+        }
+    }
+
+    public async getUserTechnician(userId: string): Promise<User> {
+        try{
+            const response = await this.axios.get(`${this.axios.defaults.baseURL}/technicians/user/${userId}`);
+            return response.data;
+        }catch (error: any){
             if (error.response) {
                 const errorMessage = error.response.data.message;
                 throw new Error(errorMessage);

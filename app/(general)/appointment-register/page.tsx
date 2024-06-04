@@ -4,16 +4,17 @@ import { ChangeEvent, useState } from 'react';
 import { useCreateAppointment } from '@/hooks/appointment/createAppointment';
 import { CreateAppointment } from '@/interfaces/create-appointment';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { useTechnicianUser } from '@/hooks/technician/useTechnicianUser';
+import { User } from '@/interfaces/user';
 
 const Appointment = () => {
+    const searchParams = useSearchParams();
+    const technicianId = searchParams.get('technicianId') ?? ''; // Provide a default value of an empty string if technicianId is null
+    const { getUserTechnician } = useTechnicianUser(technicianId);
+
     const { createAppointment } = useCreateAppointment();
 
     const router = useRouter();
-
-    const searchParams = useSearchParams()
-        
-    // Recuperar las variables de la URL
-    const technicianId = searchParams.get('technicianId')
 
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -33,9 +34,10 @@ const Appointment = () => {
         }
 
         if (technicianId && typeof technicianId === 'string') {
+            const userTechnician = await getUserTechnician(); // Await the getUserTechnician() function call to get the actual User object
             const appointmentData: CreateAppointment = {
                 description,
-                technicianId: technicianId,
+                technicianId: userTechnician.id,
                 date: selectedDate,
                 initTime: new Date(selectedDate).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) // obtener la hora en formato HH:MM
             };

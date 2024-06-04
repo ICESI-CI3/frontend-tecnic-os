@@ -16,7 +16,7 @@ export const useCreateAppointment = () => {
 
     const createAppointment = async (appointmentData: CreateAppointment) => {
         console.log("Client side ", currentUser?.accessToken)
-        const appointmentService = new AppointmentService(process.env.API_URL || "http://localhost:3000/api", currentUser?.accessToken);
+        const appointmentService = new AppointmentService("http://localhost:3000/api", currentUser?.accessToken);
         const user = await appointmentService.createAppointment(appointmentData);
         return user;
     };

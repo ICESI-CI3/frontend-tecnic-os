@@ -34,11 +34,11 @@ export default async function TechniciansCarouselSection({name, technicians}: Pr
             {technicians.map((technician) => (
             <div
                 key={technician.id}
-                className="min-w-[200px] bg-white p-4 rounded-lg shadow-md flex-shrink-0"
+                className="min-w-[200px] bg-white p-4 rounded-lg shadow-md flex-shrink-0 hover:cursor-pointer"
                 onClick={() => handleTechnicianClick(technician.id)}
             >
                 <img
-                src="https://via.placeholder.com/150"
+                src="https://thispersondoesnotexist.com/"
                 alt={technician.description}
                 className="w-full h-40 object-cover rounded-md mb-4"
                 />

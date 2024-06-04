@@ -54,7 +54,7 @@ export default function Profile() {
   const { technician, loading: technicianLoading } = useTechnician(id);
 
   const handleButtonClick = () => {
-    router.push('/technicianRegister'); // Replace '/register' with your desired route
+    router.push(`/technicianRegister?id=${id}`); // Replace '/register' with your desired route
   };
 
   return (
